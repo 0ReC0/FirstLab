@@ -152,10 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FirstLab.cpp" />
-    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="CarList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Session.h" />
+    <ClInclude Include="CarList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
