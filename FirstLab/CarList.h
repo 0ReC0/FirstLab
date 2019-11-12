@@ -10,7 +10,7 @@ using namespace std;
 
 struct car {
 	string brand;
-	string manufacturerÑountry;
+	string manufacturerï¿½ountry;
 	int manufactureYear;
 };
 typedef struct list {
@@ -31,12 +31,11 @@ void showList(carNode* headNode);
 void formCarLineUp(carNode*& headNode, carLineUpNode*& carLineUp);
 
 void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp);
+carNode* getFirstNodeToDelete(carLineUpNode* carLineUp, string brand);
 
 void AddBrandToCarLineUp(carLineUpNode*& carLineUp, carNode* newCarBrandNode);
 
 bool IsBrandExistInCarLineUp(carLineUpNode*& carLineUp, string brand);
-
-void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp);
 
 void fillNodeData(carNode* car);
 

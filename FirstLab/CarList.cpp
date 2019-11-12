@@ -15,7 +15,7 @@ void showList(carNode* headNode) {
 	carNode* currNode = headNode;
 	cout << setw(15) << "Brand" << setw(15) << "Country" << setw(15) << "Manufacture year" << endl;
 	while (currNode != nullptr) {
-		cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturerÑountry << setw(15) << currNode->data.manufactureYear << endl;
+		cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturerï¿½ountry << setw(15) << currNode->data.manufactureYear << endl;
 		currNode = currNode->next;
 	}
 }
@@ -26,7 +26,7 @@ void showNodeInfo(carNode* currNode) {
 	}
 
 	cout << setw(15) << "Brand" << setw(15) << "Country" << setw(15) << "Manufacture year" << endl;
-	cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturerÑountry << setw(15) << currNode->data.manufactureYear << endl;
+	cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturerï¿½ountry << setw(15) << currNode->data.manufactureYear << endl;
 }
 
 void createList(carNode*& headNode, carNode* car, int count) {
@@ -54,7 +54,7 @@ void fillNodeData(carNode* car) {
 
 
 	cout << "Manufacturer country" << endl;
-	cin >> car->data.manufacturerÑountry;
+	cin >> car->data.manufacturerï¿½ountry;
 
 	do {
 		cout << "Manufacture year" << endl;
@@ -214,6 +214,7 @@ carNode* getFirstNodeToDelete(carLineUpNode* carLineUp, string brand) {
 			return nullptr;
 		}
 	}
+	return
 }
 
 void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
@@ -319,7 +320,7 @@ carNode* searchNodeInList(carNode* headNode) {
 	carNode* currNode = headNode;
 	while (currNode) {
 		if (currNode->data.brand == searchNode->data.brand
-			&& currNode->data.manufacturerÑountry == searchNode->data.manufacturerÑountry
+			&& currNode->data.manufacturerï¿½ountry == searchNode->data.manufacturerï¿½ountry
 			&& currNode->data.manufactureYear == searchNode->data.manufactureYear)
 			return currNode;
 		currNode = currNode->next;
