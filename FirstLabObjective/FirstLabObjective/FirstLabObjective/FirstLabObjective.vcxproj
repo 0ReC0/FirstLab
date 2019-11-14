@@ -153,12 +153,14 @@
   <ItemGroup>
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarLineUpNode.cpp" />
+    <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarNode.cpp" />
     <ClCompile Include="FirstLabObjective.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarLineUpNode.h" />
+    <ClInclude Include="CarList.h" />
     <ClInclude Include="CarNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,6 +10,7 @@
 #include <windows.h>
 #include "CarNode.h"
 #include "CarLineUpNode.h"
+#include "CarList.h"
 
 #include <iostream>
 void menu() {
@@ -27,8 +28,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	CarNode* headNode = nullptr;
-	CarLineUpNode* carLineUp = nullptr;
+	CarList* carList = new CarList();
 
 	int menu_vibor, count_node = -1;
 	bool flag = 0, error = 0;
@@ -54,31 +54,41 @@ int main()
 				}
 				else {
 					error = false;
-					headNode->createList(count_node);
+					carList->createList(count_node);
 				}
 			} while (error);
 			break;
 		case 2: // 2) Show list
-			headNode->showList();
+			carList->showList();
 			break;
 		case 3: // 3) Form list car line-up
-			carLineUp->formCarLineUp(headNode);
-			break;
-		case 4: // 4) Delete brand from one-way list
-			carLineUp->formCarLineUp(headNode);
-			carLineUp->deleteBrandCars(headNode);
-			break;
-		case 5:  // 5) Search node in list
-			( headNode->searchNodeInList() )->showNodeInfo();
-			break;
-		case 6:  // 6) Add node to list
-			carLineUp->carData->fillNodeData();
-
-			if (headNode) {
-				headNode->addNewNode();
+			if (carList != nullptr) {
+				carList->headCarLineUp->formCarLineUp(carList->headCarLineUp, carList->head);
+				carList->headCarLineUp->showList();
 			}
 			else {
-				cout << "Error while adding new node \n";
+				cerr << "Error while forming car line-up \nCar list doesnt exist";
+			}
+			break;
+		case 4: // 4) Delete brand from one-way list
+			if (carList != nullptr) {
+				carList->headCarLineUp->formCarLineUp(carList->headCarLineUp, carList->head);
+				carList->deleteBrandCars();
+			}
+			else {
+				cerr << "Error while forming car line-up \nCar list doesnt exist";
+			}
+			break;
+		case 5:  // 5) Search node in list
+			(carList->searchNodeInList())->showNodeInfo();
+			break;
+		case 6:  // 6) Add node to list
+
+			if (carList->head) {
+				carList->addNewNode();
+			}
+			else {
+				cout << "Create list first \n";
 			}
 			break;
 		default: // To exit enter number of not equal to proposed

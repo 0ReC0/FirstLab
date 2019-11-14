@@ -9,7 +9,7 @@ Car::Car() {
 void Car::fillNodeData() {
 	bool error;
 
-	cout << "this's brand" << endl;
+	cout << "Enter brand" << endl;
 	do {
 		cin >> this->brand;
 		if (this->brand == "") {
@@ -30,7 +30,7 @@ void Car::fillNodeData() {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(32000, '\n');
-			cerr << "Manufacture year must be numeric \n Re-entry \n";
+			cerr << "Manufacture year must be numeric \nRe-entry \n";
 			error = true;
 			continue;
 		}

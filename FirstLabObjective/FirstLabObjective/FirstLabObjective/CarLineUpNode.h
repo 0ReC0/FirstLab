@@ -4,7 +4,7 @@
 #include "CarNode.h"
 using namespace std;
 
-class CarLineUpNode : public CarNode
+class CarLineUpNode
 {
 public:
 	CarLineUpNode();
@@ -17,18 +17,15 @@ public:
 
 	CarLineUpNode* next;
 
+	void showList();
 
-	void formCarLineUp(CarNode*& headNode);
+	void formCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* headNode);
 
-	void deleteBrandCars(CarNode*& headNode);
-
-
-
-private:
 	CarNode* getFirstNodeToDelete(string brand);
+private:
 
 	bool IsBrandExistInCarLineUp(string brand);
 
-	void AddBrandToCarLineUp(CarNode* newCarBrandNode);
+	void AddBrandToCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* newCarBrandNode);
 };
 

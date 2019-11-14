@@ -10,20 +10,45 @@ CarLineUpNode::CarLineUpNode(string brand, CarNode* firstCarNodeInLineUp) {
 	this->firstCarNodeInLineUp = firstCarNodeInLineUp;
 	this->next = nullptr;
 };
-void CarLineUpNode::formCarLineUp(CarNode*& headNode) {
+void CarLineUpNode::showList() {
+	if (this) {
+		CarLineUpNode* currLineUpNode = this;
+		while (currLineUpNode != nullptr) {
+			cout << setw(15) << "Brand " << currLineUpNode->brand << endl;
+			CarNode* currNode = currLineUpNode->firstCarNodeInLineUp;
+			cout << setw(30) << "Brand" << setw(30) << "Country" << setw(30) << "Manufacture year" << endl;
+			while (currNode != nullptr && currNode->carData->brand == currLineUpNode->brand) {
+				cout << setw(30) << currNode->carData->brand << setw(30) << currNode->carData->manufacturerCountry << setw(30) << currNode->carData->manufactureYear << endl;
+				currNode = currNode->next;
+			}
+
+			currLineUpNode = currLineUpNode->next;
+		}
+	}
+	else {
+		cerr << "Error while showing list" << endl;
+	}
+}
+void CarLineUpNode::formCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* headNode) {
 	CarNode* currNode = headNode;
-	CarLineUpNode* carLineUp = nullptr;
+	if (headNode == nullptr) {
+		cerr << "Error while forming car line up \nCar list doesnt exist \n";
+		return;
+	}
+
+	CarLineUpNode* carLineUp = headCarLineUpNode;
+	carLineUp = nullptr;
 
 	do {
 		if (!(carLineUp->IsBrandExistInCarLineUp(currNode->carData->brand))) {
-			carLineUp->AddBrandToCarLineUp(currNode);
+			carLineUp->AddBrandToCarLineUp(headCarLineUpNode, currNode);
 		}
 
 		currNode = currNode->next;
 	} while (currNode != nullptr);
 }
 
-void CarLineUpNode::AddBrandToCarLineUp(CarNode* newCarBrandNode) {
+void CarLineUpNode::AddBrandToCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* newCarBrandNode) {
 	if (this != nullptr) {
 		CarLineUpNode* currNode = this;
 		CarLineUpNode* prevNode = nullptr;
@@ -39,7 +64,7 @@ void CarLineUpNode::AddBrandToCarLineUp(CarNode* newCarBrandNode) {
 		prevNode->next = currNode;
 	}
 	else {
-		*this = *(new CarLineUpNode(newCarBrandNode->carData->brand, newCarBrandNode));
+		headCarLineUpNode = new CarLineUpNode(newCarBrandNode->carData->brand, newCarBrandNode);
 	}
 }
 
@@ -64,108 +89,13 @@ CarNode* CarLineUpNode::getFirstNodeToDelete(string brand) {
 			return currNode->firstCarNodeInLineUp;
 			break;
 		}
-		currNode = currNode->next;
-
 		if (currNode == nullptr) {
 			cout << "This brand doesnt exist \n";
 			return nullptr;
 		}
+		currNode = currNode->next;
+
 	}
 	return nullptr;
 }
 
-void CarLineUpNode::deleteBrandCars(CarNode*& headNode) {
-	cout << "Enter car's brand, which you want to delete from list \n";
-	string brand;
-	cin >> brand;
-
-	CarNode* nodeBeforeDeleted = nullptr;
-	CarNode* nodeAfterDeleted = nullptr;
-	CarNode* firstNodeToDelete = nullptr;
-	CarNode* currentNode = headNode;
-	CarNode* prevNode = nullptr;
-
-	firstNodeToDelete = this->getFirstNodeToDelete(brand);
-
-
-	while (currentNode != nullptr)
-	{
-		if (nodeBeforeDeleted && currentNode != nullptr && currentNode->carData->brand != brand) {
-			nodeAfterDeleted = currentNode;
-		}
-
-		// if exit any node before deleting node then remember it
-		if (currentNode->next == firstNodeToDelete) {
-			nodeBeforeDeleted = currentNode;
-		}
-
-		// if current node first and alone in line-up or its last in line-up then set it to nullptr
-		if (currentNode == firstNodeToDelete && currentNode->next == nullptr) {
-			if (prevNode) {
-				prevNode->next = nullptr;
-				return;
-			}
-			else {
-				headNode = nullptr;
-				return;
-			}
-		}
-
-		// if doesnt exit any node before and it is not last in line-up then delete currentNode and iterate 
-		//		or if next node from another brand line-up then set it to headNode
-		else if (!nodeBeforeDeleted
-			&& currentNode->next != nullptr
-			&& currentNode != nullptr
-			&& currentNode->carData->brand == brand) {
-
-			prevNode = currentNode;
-			currentNode = currentNode->next;
-
-			delete prevNode;
-
-			if (currentNode->carData->brand != brand) {
-				headNode = currentNode;
-				break;
-			}
-
-			continue;
-		}
-
-		// if doesnt exit any node before and it is last in line-up then set headNode to nullptr
-		else if (!nodeBeforeDeleted
-			&& currentNode->next == nullptr
-			&& currentNode != nullptr
-			&& currentNode->carData->brand == brand) {
-
-			delete currentNode;
-			headNode = nullptr;
-			break;
-		}
-		prevNode = currentNode;
-		currentNode = currentNode->next;
-	}
-
-	if (nodeBeforeDeleted != nullptr) {
-
-		currentNode = nodeBeforeDeleted;
-
-		// deleting node useless nodes
-		while (currentNode != nullptr
-			&& currentNode != nodeAfterDeleted
-			&& currentNode->next != nullptr
-			&& currentNode->next->next != nullptr) {
-
-			prevNode = currentNode;
-			currentNode = currentNode->next->next;
-
-			delete prevNode->next;
-		}
-
-		// connect node before deleted nodes and node after them
-		if (nodeAfterDeleted) {
-			nodeBeforeDeleted->next = nodeAfterDeleted;
-		}
-	}
-
-
-}

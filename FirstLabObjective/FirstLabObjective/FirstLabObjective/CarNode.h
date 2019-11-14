@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <windows.h>
 #include "Car.h"
-#include "CarLineUpNode.h"
 
 using namespace std;
 
@@ -15,17 +14,11 @@ class CarNode
 public:
 	CarNode();
 
+	CarNode(Car* car, CarNode* next);
+
 	Car* carData;
+
 	CarNode* next;
-
-
-	void showList();
-
-	void createList(int count);
-
-	void addNewNode();
-
-	CarNode* searchNodeInList();
 
 	void showNodeInfo();
 };

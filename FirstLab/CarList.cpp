@@ -214,7 +214,7 @@ carNode* getFirstNodeToDelete(carLineUpNode* carLineUp, string brand) {
 			return nullptr;
 		}
 	}
-	return
+	return;
 }
 
 void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
