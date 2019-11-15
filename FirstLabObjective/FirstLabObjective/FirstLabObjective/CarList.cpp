@@ -6,7 +6,7 @@ CarList::CarList() {
 }
 
 void CarList::showList() {
-	if (this) {
+	if (this->head) {
 		CarNode* currNode = this->head;
 		cout << setw(30) << "Brand" << setw(30) << "Country" << setw(30) << "Manufacture year" << endl;
 		while (currNode != nullptr) {
@@ -139,6 +139,11 @@ void CarList::deleteBrandCars() {
 
 	firstNodeToDelete = this->headCarLineUp->getFirstNodeToDelete(brand);
 
+	if (!firstNodeToDelete) {
+		cerr << "Error while deleting brand\nThis brand '" <<brand<<"' doesnt exist"<< endl;
+		return;
+	}
+
 
 	while (currentNode != nullptr)
 	{
@@ -197,11 +202,11 @@ void CarList::deleteBrandCars() {
 		currentNode = currentNode->next;
 	}
 
-	if (nodeBeforeDeleted != nullptr) {
+	if (nodeBeforeDeleted != nullptr && nodeAfterDeleted) {
 
 		currentNode = nodeBeforeDeleted;
 
-		// deleting node useless nodes
+		// deleting useless nodes
 		while (currentNode != nullptr
 			&& currentNode != nodeAfterDeleted
 			&& currentNode->next != nullptr
@@ -218,10 +223,26 @@ void CarList::deleteBrandCars() {
 			nodeBeforeDeleted->next = nodeAfterDeleted;
 		}
 	}
+	if (nodeBeforeDeleted != nullptr && !nodeAfterDeleted) {
+
+		currentNode = nodeBeforeDeleted->next;
+
+		// deleting useless nodes
+		while (currentNode != nullptr) {
+
+			prevNode = currentNode;
+			currentNode = currentNode->next;
+
+			delete prevNode;
+		}
+
+		// connect node before deleted nodes and node after them
+		nodeBeforeDeleted->next = nullptr;
+	}
 
 
 }
-void CarList::AddBrandToCarLineUp( CarNode* newCarBrandNode) {
+void CarList::AddBrandToCarLineUp(CarNode* newCarBrandNode) {
 	if (this->headCarLineUp != nullptr) {
 		CarLineUpNode* currNode = this->headCarLineUp;
 		CarLineUpNode* prevNode = nullptr;
