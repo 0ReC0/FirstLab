@@ -17,6 +17,10 @@ public:
 
 	void createList(int count);
 
+	void AddBrandToCarLineUp(CarNode* newCarBrandNode);
+
+	void formCarLineUp();
+
 	void addNewNode();
 
 	CarNode* searchNodeInList();

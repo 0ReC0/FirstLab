@@ -19,13 +19,11 @@ public:
 
 	void showList();
 
-	void formCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* headNode);
+	
 
 	CarNode* getFirstNodeToDelete(string brand);
-private:
-
 	bool IsBrandExistInCarLineUp(string brand);
 
-	void AddBrandToCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* newCarBrandNode);
+
 };
 

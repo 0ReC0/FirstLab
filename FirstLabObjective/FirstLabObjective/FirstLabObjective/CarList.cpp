@@ -146,7 +146,7 @@ void CarList::deleteBrandCars() {
 			nodeAfterDeleted = currentNode;
 		}
 
-		// if exit any node before deleting node then remember it
+		// if exist any node before deleting node then remember it
 		if (currentNode->next == firstNodeToDelete) {
 			nodeBeforeDeleted = currentNode;
 		}
@@ -163,7 +163,7 @@ void CarList::deleteBrandCars() {
 			}
 		}
 
-		// if doesnt exit any node before and it is not last in line-up then delete currentNode and iterate 
+		// if doesnt exist any node before and it is not last in line-up then delete currentNode and iterate 
 		//		or if next node from another brand line-up then set it to headNode
 		else if (!nodeBeforeDeleted
 			&& currentNode->next != nullptr
@@ -183,7 +183,7 @@ void CarList::deleteBrandCars() {
 			continue;
 		}
 
-		// if doesnt exit any node before and it is last in line-up then set headNode to nullptr
+		// if doesnt exist any node before and it is last in line-up then set headNode to nullptr
 		else if (!nodeBeforeDeleted
 			&& currentNode->next == nullptr
 			&& currentNode != nullptr
@@ -220,4 +220,40 @@ void CarList::deleteBrandCars() {
 	}
 
 
+}
+void CarList::AddBrandToCarLineUp( CarNode* newCarBrandNode) {
+	if (this->headCarLineUp != nullptr) {
+		CarLineUpNode* currNode = this->headCarLineUp;
+		CarLineUpNode* prevNode = nullptr;
+
+		// find last node
+		while (currNode != nullptr) {
+			prevNode = currNode;
+			currNode = currNode->next;
+		}
+
+		currNode = new CarLineUpNode(newCarBrandNode->carData->brand, newCarBrandNode);
+
+		prevNode->next = currNode;
+	}
+	else {
+		this->headCarLineUp = new CarLineUpNode(newCarBrandNode->carData->brand, newCarBrandNode);
+	}
+}
+void CarList::formCarLineUp() {
+	CarNode* currNode = this->head;
+	if (currNode == nullptr) {
+		cerr << "Error while forming car line up \nCar list doesnt exist \n";
+		return;
+	}
+
+	this->headCarLineUp = nullptr;
+
+	do {
+		if (!(this->headCarLineUp->IsBrandExistInCarLineUp(currNode->carData->brand))) {
+			this->AddBrandToCarLineUp(currNode);
+		}
+
+		currNode = currNode->next;
+	} while (currNode != nullptr);
 }

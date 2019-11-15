@@ -31,9 +31,10 @@ int main()
 	CarList* carList = new CarList();
 
 	int menu_vibor, count_node = -1;
-	bool flag = 0, error = 0;
-	menu();
+	bool error = false;
 	while (true) {
+		cout << endl;
+		menu();
 		cout << "\n\nNext select: ";
 		cin >> menu_vibor;
 		switch (menu_vibor) {
@@ -63,7 +64,7 @@ int main()
 			break;
 		case 3: // 3) Form list car line-up
 			if (carList != nullptr) {
-				carList->headCarLineUp->formCarLineUp(carList->headCarLineUp, carList->head);
+				carList->formCarLineUp();
 				carList->headCarLineUp->showList();
 			}
 			else {
@@ -72,7 +73,7 @@ int main()
 			break;
 		case 4: // 4) Delete brand from one-way list
 			if (carList != nullptr) {
-				carList->headCarLineUp->formCarLineUp(carList->headCarLineUp, carList->head);
+				carList->formCarLineUp();
 				carList->deleteBrandCars();
 			}
 			else {

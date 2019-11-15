@@ -29,44 +29,9 @@ void CarLineUpNode::showList() {
 		cerr << "Error while showing list" << endl;
 	}
 }
-void CarLineUpNode::formCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* headNode) {
-	CarNode* currNode = headNode;
-	if (headNode == nullptr) {
-		cerr << "Error while forming car line up \nCar list doesnt exist \n";
-		return;
-	}
 
-	CarLineUpNode* carLineUp = headCarLineUpNode;
-	carLineUp = nullptr;
 
-	do {
-		if (!(carLineUp->IsBrandExistInCarLineUp(currNode->carData->brand))) {
-			carLineUp->AddBrandToCarLineUp(headCarLineUpNode, currNode);
-		}
 
-		currNode = currNode->next;
-	} while (currNode != nullptr);
-}
-
-void CarLineUpNode::AddBrandToCarLineUp(CarLineUpNode*& headCarLineUpNode, CarNode* newCarBrandNode) {
-	if (this != nullptr) {
-		CarLineUpNode* currNode = this;
-		CarLineUpNode* prevNode = nullptr;
-
-		// find last node
-		while (currNode != nullptr) {
-			prevNode = currNode;
-			currNode = currNode->next;
-		}
-
-		currNode = new CarLineUpNode(newCarBrandNode->carData->brand, newCarBrandNode);
-
-		prevNode->next = currNode;
-	}
-	else {
-		headCarLineUpNode = new CarLineUpNode(newCarBrandNode->carData->brand, newCarBrandNode);
-	}
-}
 
 bool CarLineUpNode::IsBrandExistInCarLineUp(string brand) {
 	if (this == nullptr)
@@ -85,7 +50,7 @@ CarNode* CarLineUpNode::getFirstNodeToDelete(string brand) {
 	CarLineUpNode* currNode = this;
 	while (currNode != nullptr)
 	{
-		if (this->brand == brand) {
+		if (currNode->brand == brand) {
 			return currNode->firstCarNodeInLineUp;
 			break;
 		}
