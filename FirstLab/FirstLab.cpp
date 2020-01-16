@@ -47,20 +47,28 @@ int main()
 			} while (error);
 			break;
 		case 2: // 2) Show list
-			showList(headNode);
+			if (headNode != nullptr) {
+				showList(headNode);
+			}
 			break;
 		case 3: // 3) Form list car line-up
-			formCarLineUp(headNode, carLineUp);
+			if (headNode != nullptr) {
+				formCarLineUp(headNode, carLineUp);
+			}
 			break;
 		case 4: // 4) Delete brand from one-way list
-			formCarLineUp(headNode, carLineUp);
-			deleteBrandCars(headNode, carLineUp);
+			if (headNode != nullptr) {
+
+				deleteBrandCars(headNode, carLineUp);
+			}
 			break;
 		case 5:  // 5) Search node in list
-			showNodeInfo(searchNodeInList(headNode));
+			if (headNode != nullptr) {
+				showNodeInfo(searchNodeInList(headNode));
+			}
 			break;
 		case 6:  // 6) Add node to list
-			fillNodeData(car);
+			//fillNodeData(car);
 
 			if (headNode) {
 				addNewNode(headNode, car);

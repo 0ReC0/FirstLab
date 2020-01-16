@@ -14,8 +14,8 @@ void menu() {
 void showList(carNode* headNode) {
 	carNode* currNode = headNode;
 	cout << setw(15) << "Brand" << setw(15) << "Country" << setw(15) << "Manufacture year" << endl;
-	while (currNode != nullptr) {
-		cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturer�ountry << setw(15) << currNode->data.manufactureYear << endl;
+	while (currNode != nullptr && currNode->data.brand != "") {
+		cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturerCountry << setw(15) << currNode->data.manufactureYear << endl;
 		currNode = currNode->next;
 	}
 }
@@ -26,7 +26,7 @@ void showNodeInfo(carNode* currNode) {
 	}
 
 	cout << setw(15) << "Brand" << setw(15) << "Country" << setw(15) << "Manufacture year" << endl;
-	cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturer�ountry << setw(15) << currNode->data.manufactureYear << endl;
+	cout << setw(15) << currNode->data.brand << setw(15) << currNode->data.manufacturerCountry << setw(15) << currNode->data.manufactureYear << endl;
 }
 
 void createList(carNode*& headNode, carNode* car, int count) {
@@ -54,7 +54,7 @@ void fillNodeData(carNode* car) {
 
 
 	cout << "Manufacturer country" << endl;
-	cin >> car->data.manufacturer�ountry;
+	cin >> car->data.manufacturerCountry;
 
 	do {
 		cout << "Manufacture year" << endl;
@@ -214,7 +214,7 @@ carNode* getFirstNodeToDelete(carLineUpNode* carLineUp, string brand) {
 			return nullptr;
 		}
 	}
-	return;
+	return nullptr;
 }
 
 void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
@@ -228,6 +228,8 @@ void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
 	carNode* currentNode = headNode;
 	carNode* prevNode = nullptr;
 
+	formCarLineUp(headNode, carLineUp);
+
 	firstNodeToDelete = getFirstNodeToDelete(carLineUp, brand);
 
 
@@ -235,6 +237,7 @@ void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
 	{
 		if (nodeBeforeDeleted && currentNode != nullptr && currentNode->data.brand != brand) {
 			nodeAfterDeleted = currentNode;
+			break;
 		}
 
 		// if exit any node before deleting node then remember it
@@ -264,7 +267,7 @@ void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
 			prevNode = currentNode;
 			currentNode = currentNode->next;
 
-			delete prevNode;
+			prevNode = nullptr;
 
 			if (currentNode->data.brand != brand) {
 				headNode = currentNode;
@@ -280,7 +283,7 @@ void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
 			&& currentNode != nullptr
 			&& currentNode->data.brand == brand) {
 
-			delete currentNode;
+			currentNode = nullptr;
 			headNode = nullptr;
 			break;
 		}
@@ -301,7 +304,7 @@ void deleteBrandCars(carNode*& headNode, carLineUpNode* carLineUp) {
 			prevNode = currentNode;
 			currentNode = currentNode->next->next;
 
-			delete prevNode->next;
+			prevNode->next = nullptr;
 		}
 
 		// connect node before deleted nodes and node after them
@@ -320,7 +323,7 @@ carNode* searchNodeInList(carNode* headNode) {
 	carNode* currNode = headNode;
 	while (currNode) {
 		if (currNode->data.brand == searchNode->data.brand
-			&& currNode->data.manufacturer�ountry == searchNode->data.manufacturer�ountry
+			&& currNode->data.manufacturerCountry == searchNode->data.manufacturerCountry
 			&& currNode->data.manufactureYear == searchNode->data.manufactureYear)
 			return currNode;
 		currNode = currNode->next;

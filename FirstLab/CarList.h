@@ -10,7 +10,7 @@ using namespace std;
 
 struct car {
 	string brand;
-	string manufacturer�ountry;
+	string manufacturerCountry;
 	int manufactureYear;
 };
 typedef struct list {

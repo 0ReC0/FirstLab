@@ -19,9 +19,8 @@ public:
 
 	void showList();
 
-	
-
 	CarNode* getFirstNodeToDelete(string brand);
+
 	bool IsBrandExistInCarLineUp(string brand);
 
 
